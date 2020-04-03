@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import ReactGlobe from 'react-globe';
 
-import defaultMarkers from './markers';
+import { HelsinkiMarkers } from './markers';
 
 function getTooltipContent(marker) {
   return `CITY: ${marker.city} (Value: ${marker.value})`;
@@ -10,7 +10,7 @@ function getTooltipContent(marker) {
 
 //value used to be: Math.floor(Math.random() * 100)
 function App() {
-  const randomMarkers = defaultMarkers.map(marker => ({
+  const initCountryMarkers = HelsinkiMarkers.markers.map(marker => ({
     ...marker,
     value: marker.value,
   }));
@@ -69,15 +69,18 @@ function App() {
           </p>
         </div>
       )}
-      <button onClick={() => setMarkers(randomMarkers)}> {/*This thing actually initializes the markers. Just change the wording to be proper. */}
-        Randomize markers
+      <button onClick={() => setMarkers(initCountryMarkers)}> {/*This thing actually initializes the markers. Just change the wording to be proper. */}
+        London markers
+      </button>
+      <button onClick={() => setMarkers(initCountryMarkers)}> {/*This thing actually initializes the markers. Just change the wording to be proper. */}
+        Helsinki markers
       </button>
       <button disabled={markers.length === 0} onClick={() => setMarkers([])}>
         Clear markers
       </button>
       <button
-        disabled={markers.length === randomMarkers.length}
-        onClick={() => setMarkers([...markers, randomMarkers[markers.length]])}>
+        disabled={markers.length === initCountryMarkers.length}
+        onClick={() => setMarkers([...markers, initCountryMarkers[markers.length]])}>
         Add marker
       </button>
       <button
