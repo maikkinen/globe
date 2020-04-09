@@ -1,6 +1,6 @@
 
 const AllMarkersByCountry = {
-  healthcare: {
+  us: {
     markers: [
       {
         id: 4,
@@ -11,16 +11,17 @@ const AllMarkersByCountry = {
         value: 400,
       },
       {
-        id: 1,
-        headline: 'Headline wow such wow',
-        color: 'green',
+        id: 15,
+        headline: 'Headline super super super!',
+        color: '#anyHexColorHere',
         city: 'Nuuk',
         coordinates: [58.5074, 0.1278],
         value: 80,
+        tags: ["government", "healthcare", "safety"],
       },
     ]
   },
-  government: {
+  it: {
     markers: [
       {
         id: 2,
@@ -72,7 +73,7 @@ const AllMarkersByCountry = {
       },
     ]
   },
-   economy: {
+   ch: {
     markers: [
       {
         id: 2,
