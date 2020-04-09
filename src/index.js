@@ -1,8 +1,25 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import ReactGlobe, { defaultMarkerOptions } from 'react-globe';
-
+import ReactGlobe from 'react-globe';
+import Radio from "@material-ui/core/Radio"
+import ButtonGroup from "@material-ui/core/ButtonGroup"
+import Button from "@material-ui/core/Button"
+import { makeStyles } from '@material-ui/core/styles'
+import Container from "@material-ui/core/Container"
 import { AllMarkersByCountry } from './markers';
+
+const useStyles = makeStyles({
+  root: {
+    maxWidth: "50%",
+    padding: "1em"
+  },
+  defaultButton: {
+    backgroundColor: "#6b3c67"
+  },
+  selectedButton: {
+    backgroundColor: "#997bad"
+  }
+})
 
 function getTooltipContent(marker) {
   return (
@@ -12,6 +29,8 @@ function getTooltipContent(marker) {
       <p>SE: {marker.headline3}</p>
       <p>CH: {marker.headline4}</p>
       <p>CH: {marker.headline5}</p>
+      <br/>
+      <p>Was said about {marker.city} from outside</p>
     </div>
   )
 }
@@ -19,13 +38,51 @@ function getTooltipContent(marker) {
 //value used to be: Math.floor(Math.random() * 100)
 function App() {
 
-  const [country1, setCountry1] = useState('finland')
-  const [country2, setCountry2] = useState("UK")
+  
+const RadioButtons = () => {
+  const [selectedValue, setSelectedValue] = useState('a')
+
+  const classes = useStyles()
+
+  const handleRadioChange = (event) => {
+    setSelectedValue(event.target.value)
+  }
+
+  const handleButtonChange = (event) => {
+    console.log("wasup")
+  }
+  return (
+    <div>
+      <Container>
+      <Radio
+        checked={selectedValue === 'a'}
+        onChange={handleRadioChange}
+        value="a"
+        name="radio-button-demo"
+        inputProps={{ 'aria-label': 'A' }}
+      />
+      <Radio
+        checked={selectedValue === 'b'}
+        onChange={handleRadioChange}
+        value="b"
+        name="radio-button-demo"
+        inputProps={{ 'aria-label': 'B' }}
+        label="(Disabled option)"
+      />
+      </Container>
+      <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
+        <Button className={classes.defaultButton} onClick={() => setMarkers(initCountryMarkers('healthcare'))}>Healthcare</Button>
+        <Button className={classes.defaultButton} onClick={() => setMarkers(initCountryMarkers('government'))}>Government</Button>
+        <Button className={classes.defaultButton} onClick={() => setMarkers(initCountryMarkers('economy'))}>Economy</Button>
+      </ButtonGroup>
+    </div>
+  )
+}
 
   const initCountryMarkers = (country) => {
     const countryMarkers = AllMarkersByCountry[country].markers.map(marker => ({
-      ...marker,
-      value: marker.value,
+          ...marker,
+          value: marker.value,
     })
     )
     console.log("countrymarkers :", countryMarkers)
@@ -37,73 +94,54 @@ function App() {
   const [details, setDetails] = useState(null);
 
   function onClickMarker(marker, markerObject, event) {
-    setEvent({
-      type: 'CLICK',
-      marker,
-      markerObjectID: markerObject.uuid,
-      pointerEventPosition: { x: event.clientX, y: event.clientY },
-    });
+          setEvent({
+            type: 'CLICK',
+            marker,
+            markerObjectID: markerObject.uuid,
+            pointerEventPosition: { x: event.clientX, y: event.clientY },
+          });
     setDetails(getTooltipContent(marker));
   }
   function onDefocus(previousCoordinates, event) {
-    setEvent({
-      type: 'DEFOCUS',
-      previousCoordinates,
-      pointerEventPosition: { x: event.clientX, y: event.clientY },
-    });
+          setEvent({
+            type: 'DEFOCUS',
+            previousCoordinates,
+            pointerEventPosition: { x: event.clientX, y: event.clientY },
+          });
     setDetails(null);
   }
 
   return (
-    <div style={{ width: '75vw', height: '75vh', top: '0px', lef: '0px', margin: '0px' }}>
-      <ReactGlobe
-        markers={markers}
-        markerOptions={{
-          
-          activeScale: 1.1,
-        }}
-        onClickMarker={onClickMarker}
-        onDefocus={onDefocus}
+        <div style={{ width: '75vw', height: '75vh', top: '0px', left: '0px', margin: '0px' }}>
+          <ReactGlobe
+            markers={markers}
+            markerOptions={{
+              activeScale: 1.1,
+            }}
+            onClickMarker={onClickMarker}
+            onDefocus={onDefocus}
 
-      />
-      {details && (
-        <div
-          style={{ //These are marker's notes' properties.
-            background: 'yellow',
-            position: 'absolute',
-            fontSize: 20,
-            top: '10vh',
-            right: '10vh',
-            padding: 12,
-            
-          }}>
-          
-          <p>{details}</p>
-          <p>
-            California, US
-          </p>
+          />
+          {details && (
+            <div
+              style={{ //These are marker's notes' properties.
+                background: 'yellow',
+                position: 'absolute',
+                fontSize: 20,
+                top: '10vh',
+                right: '10vh',
+                padding: 12,
+
+              }}>
+              <div>{details}</div> {/*getTooltipContent -function picks the marker's headlines and renders them here. */}
+            </div>
+          )}
+          <div>
+            <h2>Some deep text that also makes an intro to the different subsets of COVID-19 news.</h2>
+            <RadioButtons/>
+          </div>
         </div>
-      )}
-      <div>
-      <h2>Some deep text that also makes an intro to the different subsets of COVID-19 news.</h2>
-      <button onClick={() => setMarkers(initCountryMarkers('uk'))}> {/*This thing actually initializes the markers. Just change the wording to be proper. */}
-        News on Government
-      </button>
-      <button onClick={() => setMarkers(initCountryMarkers('finland'))}> {/*This thing actually initializes the markers. Just change the wording to be proper. */}
-        News on Economy
-      </button>
-      <button onClick={() => setMarkers(initCountryMarkers('finland'))}> {/*This thing actually initializes the markers. Just change the wording to be proper. */}
-        News on Politics
-      </button>
-      <button onClick={() => setMarkers(initCountryMarkers('finland'))}> {/*This thing actually initializes the markers. Just change the wording to be proper. */}
-        News on People
-      </button>
-      <button onClick={() => setMarkers(initCountryMarkers('finland'))}> {/*This thing actually initializes the markers. Just change the wording to be proper. */}
-        News on Healthcare
-      </button>
-      </div>
-    </div>
-  );
+  )
 }
 
 const rootElement = document.getElementById('root');
