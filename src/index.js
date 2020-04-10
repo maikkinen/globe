@@ -4,6 +4,11 @@ import ReactGlobe from 'react-globe';
 import Radio from "@material-ui/core/Radio"
 import ButtonGroup from "@material-ui/core/ButtonGroup"
 import Button from "@material-ui/core/Button"
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles'
 import Container from "@material-ui/core/Container"
 import { AllMarkersByCountry } from './markers';
@@ -33,47 +38,54 @@ function getTooltipContent(marker) {
 
 function App() {
 
-  const [ selectedCountry, setSelectedCountry]  = useState("Placeholder York")
+  const [selectedCountry, setSelectedCountry] = useState("ch")
 
   //Component that takes care of providing the controls for the UI.
   const RadioButtons = () => {
-    const [selectedValue, setSelectedValue] = useState('a')
+    
+    const useStyles = makeStyles((theme) => ({
+      formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+        backgroundColor: 'yellow',
+        color: 'green'
+      },
+      selectEmpty: {
+        marginTop: theme.spacing(2),
+      },
+      transpButton: {
+        color: 'white'
+      }
+    }));
 
-    const classes = useStyles()
+    const classes = useStyles();
 
-    const handleRadioChange = (event) => {
-      setSelectedValue(event.target.value)
-    }
-
-    const handleCountryChange = () => {
+    const handleCountryChange = (event) => {
       //setMarkers(initCountryMarkers())
-      console.log("wasup")
       console.log("selected country is: ", selectedCountry)
+      setSelectedCountry(event.target.value) // this one is lagging by one. why?
+      console.log("selected country is now: ", selectedCountry)
+      
     }
     return (
       <div>
         <Container>
-          <Radio
-            checked={selectedValue === 'a'}
-            onChange={handleRadioChange}
-            value="a"
-            name="radio-button-demo"
-            inputProps={{ 'aria-label': 'A' }}
-          />
-          <Radio
-            checked={selectedValue === 'b'}
-            onChange={handleRadioChange}
-            value="b"
-            name="radio-button-demo"
-            inputProps={{ 'aria-label': 'B' }}
-            label="(Disabled option)"
-          />
+        <FormControl className={classes.formControl}>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={selectedCountry}
+              onChange={handleCountryChange}
+            >
+              <MenuItem value={"ch"}>China</MenuItem>
+              <MenuItem value={"us"}>United States</MenuItem>
+              <MenuItem value={"it"}>Italy</MenuItem>
+            </Select>
+          </FormControl>
+          <Container>
+          <Button className={classes.transpButton} onClick={() => setMarkers(initCountryMarkers(selectedCountry))}>Yea lets do it</Button>
+          </Container>
         </Container>
-        <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
-          <Button className={classes.defaultButton} onClick={() => setMarkers(initCountryMarkers('us'))}>United States</Button>
-          <Button className={classes.defaultButton} onClick={() => setMarkers(initCountryMarkers('it'))}>Italy</Button>
-          <Button className={classes.defaultButton} onClick={() => setMarkers(initCountryMarkers('ch'))}>China</Button>
-        </ButtonGroup>
       </div>
     )
   }
@@ -111,10 +123,10 @@ function App() {
   }
 
   return (
-    <Container style={{ width: '100%', height: '100%', top: '0px', margin: '0px', overflow: 'hidden', backgroundColor: '#04060a'}}>
+    <Container style={{ width: '100%', height: '100%', top: '0px', margin: '0px', overflow: 'hidden', backgroundColor: '#04060a' }}>
       <div>
-        <h2 style={{color: '#f2f6fc'}}>
-          Some deep text that also makes an intro to the different subsets of COVID-19 news.
+        <h2 style={{ color: '#f2f6fc' }}>
+          See how other countries read about China in relation to COVID-19.
         </h2>
         <RadioButtons />
       </div>
