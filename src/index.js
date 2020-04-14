@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import ReactGlobe from 'react-globe';
-import Radio from "@material-ui/core/Radio"
-import ButtonGroup from "@material-ui/core/ButtonGroup"
-import Button from "@material-ui/core/Button"
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import React, { useState } from 'react'
+import ReactDOM from 'react-dom'
+import ReactGlobe from 'react-globe'
+import Button from '@material-ui/core/Button'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
+import Select from '@material-ui/core/Select'
 import { makeStyles } from '@material-ui/core/styles'
-import Container from "@material-ui/core/Container"
-import { AllMarkersByCountry } from './markers';
+import Container from '@material-ui/core/Container'
+import { AllMarkersByCountry } from './markers'
 
 const useStyles = makeStyles({
   root: {
@@ -167,18 +163,4 @@ ReactDOM.render(<App />, rootElement);
           texture:
             'https://raw.githubusercontent.com/chrisrzhou/react-globe/master/textures/globe_dark.jpg', //This skin is cooll, but seems to slow down the broswer.
         }}
-
-        <button disabled={markers.length === 0} onClick={() => setMarkers([])}>
-        Clear markers
-      </button>
-      <button
-        disabled={markers.length === initCountryMarkers.length}
-        onClick={() => setMarkers([...markers, initCountryMarkers[markers.length]])}>
-        Add marker
-      </button>
-      <button
-        disabled={markers.length === 0}
-        onClick={() => setMarkers(markers.slice(0, markers.length - 1))}>
-        Remove marker
-      </button>
 */
