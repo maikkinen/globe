@@ -1,6 +1,5 @@
 import React from 'react'
 import Container from '@material-ui/core/Container'
-import Button from '@material-ui/core/Button'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
@@ -47,9 +46,6 @@ const CountryDropdown = ({ selectedCountry, setSelectedCountry, prepareInitMarke
             <MenuItem value={"it"}>Italy</MenuItem>
           </Select>
         </FormControl>
-        <Container>
-        <Button className={classes.transpButton} onClick={() => prepareInitMarkers()}>Yea lets do it</Button>
-        </Container>
       </Container>
     </div>
   )

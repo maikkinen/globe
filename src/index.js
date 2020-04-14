@@ -1,33 +1,28 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import ReactGlobe from 'react-globe'
-import Button from '@material-ui/core/Button'
-import MenuItem from '@material-ui/core/MenuItem'
-import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select'
-import { makeStyles } from '@material-ui/core/styles'
+import { styled, makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
-import CountryDropdown from './components/CountryDropdown'
+import CTAText from './components/CTAtext.js'
+
 
 // Example for accessing markers: AllMarkersByCountry.ch.markers --> list of objects
 import { AllMarkersByCountry } from './markers'
 
+//For now, styles are available here directly, for simplicity. 
+//TODO: syled-components? Or sth else?
 const pageStyle = {
   width: '100%',
   height: '100%',
   top: '0px',
   margin: '0px',
   overflow: 'hidden',
-  backgroundColor: '#04060a'
+  backgroundColor: '#020308'
 }
 
-const headlineStyle = {
-  color: '#f2f6fc'
-}
-
-const globeStyle = {
-  width: '80vw',
-  height: '80vh',
+const globeContainerStyle = {
+  width: '100vw',
+  height: '100vh',
   top: '0px',
   left: '0px',
   margin: '0px'
@@ -42,7 +37,7 @@ const articleStyle = {
   padding: 12,
 }
 //Function that fetches the marker data, marker by marker, and formats it to be ready for rendering.
-function getTooltipContent(marker) {
+const getTooltipContent = (marker) => {
   return (
     <div>
       <p>"{marker.headline1}"</p>
@@ -51,7 +46,7 @@ function getTooltipContent(marker) {
   )
 }
 
-function App() {
+const App = () => {
 
   const [selectedCountry, setSelectedCountry] = useState("ch")
 
@@ -73,7 +68,7 @@ function App() {
   const [details, setDetails] = useState(null);
 
   //Zoom in animation + functionalities
-  function onClickMarker(marker, markerObject, event) {
+  const onClickMarker = (marker, markerObject, event) => {
     setEvent({
       type: 'CLICK',
       marker,
@@ -84,7 +79,7 @@ function App() {
   }
 
   //Zoom out animation + functionalities
-  function onDefocus(previousCoordinates, event) {
+  const onDefocus = (previousCoordinates, event) => {
     setEvent({
       type: 'DEFOCUS',
       previousCoordinates,
@@ -94,22 +89,24 @@ function App() {
   }
 
   return (
-    <Container style={pageStyle}>
-      <div>
-        <h2 style={headlineStyle}>
-          See how other countries read about China in relation to COVID-19.
-        </h2>
-        <CountryDropdown selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} prepareInitMarkers={() => prepareInitMarkers()} />
-      </div>
-      <div style={globeStyle}>
+    <Container style={pageStyle}> {/*Containser for the whole page's content. */}
+      <CTAText
+        selectedCountry={selectedCountry}
+        setSelectedCountry={setSelectedCountry}
+        prepareInitMarkers={() => prepareInitMarkers()}
+      />
+      <div style={globeContainerStyle}>
         <ReactGlobe
           markers={markers}
           markerOptions={{ activeScale: 1.1, }}
           onClickMarker={onClickMarker}
           onDefocus={onDefocus}
+          globeOptions={{
+            texture: 'https://raw.githubusercontent.com/chrisrzhou/react-globe/master/textures/globe_dark.jpg',
+          }}
         />
         {/*getTooltipContent function picks the marker's headlines and renders them here nicely; somehow.*/}
-        {details && ( <div style={articleStyle}>{details}</div>)}
+        {details && (<div style={articleStyle}>{details}</div>)}
       </div>
     </Container>
   )
@@ -117,12 +114,3 @@ function App() {
 
 const rootElement = document.getElementById('root');
 ReactDOM.render(<App />, rootElement);
-
-
-/*
-
- globeOptions={{
-          texture:
-            'https://raw.githubusercontent.com/chrisrzhou/react-globe/master/textures/globe_dark.jpg', //This skin is cooll, but seems to slow down the broswer.
-        }}
-*/
