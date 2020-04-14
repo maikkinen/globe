@@ -12,6 +12,35 @@ import CountryDropdown from './components/CountryDropdown'
 // Example for accessing markers: AllMarkersByCountry.ch.markers --> list of objects
 import { AllMarkersByCountry } from './markers'
 
+const pageStyle = {
+  width: '100%',
+  height: '100%',
+  top: '0px',
+  margin: '0px',
+  overflow: 'hidden',
+  backgroundColor: '#04060a'
+}
+
+const headlineStyle = {
+  color: '#f2f6fc'
+}
+
+const globeStyle = {
+  width: '80vw',
+  height: '80vh',
+  top: '0px',
+  left: '0px',
+  margin: '0px'
+}
+
+const articleStyle = {
+  background: 'yellow',
+  position: 'absolute',
+  fontSize: 20,
+  top: '10vh',
+  right: '10vh',
+  padding: 12,
+}
 //Function that fetches the marker data, marker by marker, and formats it to be ready for rendering.
 function getTooltipContent(marker) {
   return (
@@ -26,11 +55,8 @@ function App() {
 
   const [selectedCountry, setSelectedCountry] = useState("ch")
 
-  //Component that takes care of providing the controls for the UI.
-
-  const prepareInitMarkers = () => {
-    setMarkers(initCountryMarkers(selectedCountry))
-  }
+  //Confusion: is this one necessary anymore? 
+  const prepareInitMarkers = () => setMarkers(initCountryMarkers(selectedCountry))
 
   const initCountryMarkers = (country) => {
     const countryMarkers = AllMarkersByCountry[country].markers.map(marker => ({
@@ -46,6 +72,7 @@ function App() {
   const [event, setEvent] = useState(null);
   const [details, setDetails] = useState(null);
 
+  //Zoom in animation + functionalities
   function onClickMarker(marker, markerObject, event) {
     setEvent({
       type: 'CLICK',
@@ -55,6 +82,8 @@ function App() {
     });
     setDetails(getTooltipContent(marker));
   }
+
+  //Zoom out animation + functionalities
   function onDefocus(previousCoordinates, event) {
     setEvent({
       type: 'DEFOCUS',
@@ -65,35 +94,22 @@ function App() {
   }
 
   return (
-    <Container style={{ width: '100%', height: '100%', top: '0px', margin: '0px', overflow: 'hidden', backgroundColor: '#04060a' }}>
+    <Container style={pageStyle}>
       <div>
-        <h2 style={{ color: '#f2f6fc' }}>
+        <h2 style={headlineStyle}>
           See how other countries read about China in relation to COVID-19.
         </h2>
-        <CountryDropdown selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} prepareInitMarkers={() => prepareInitMarkers()}/>
+        <CountryDropdown selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} prepareInitMarkers={() => prepareInitMarkers()} />
       </div>
-      <div style={{ width: '80vw', height: '80vh', top: '0px', left: '0px', margin: '0px' }}>
+      <div style={globeStyle}>
         <ReactGlobe
           markers={markers}
-          markerOptions={{
-            activeScale: 1.1,
-          }}
+          markerOptions={{ activeScale: 1.1, }}
           onClickMarker={onClickMarker}
           onDefocus={onDefocus}
         />
-        {details && (
-          <div
-            style={{ //These are marker's notes' properties.
-              background: 'yellow',
-              position: 'absolute',
-              fontSize: 20,
-              top: '10vh',
-              right: '10vh',
-              padding: 12,
-            }}>
-            <div>{details}</div> {/*getTooltipContent -function picks the marker's headlines and renders them here. */}
-          </div>
-        )}
+        {/*getTooltipContent function picks the marker's headlines and renders them here nicely; somehow.*/}
+        {details && ( <div style={articleStyle}>{details}</div>)}
       </div>
     </Container>
   )
