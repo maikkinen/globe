@@ -7,20 +7,10 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
-import { AllMarkersByCountry } from './markers'
+import CountryDropdown from './components/CountryDropdown'
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: "80%",
-    padding: "1em"
-  },
-  defaultButton: {
-    backgroundColor: "#6b3c67"
-  },
-  selectedButton: {
-    backgroundColor: "#997bad"
-  }
-})
+// Example for accessing markers: AllMarkersByCountry.ch.markers --> list of objects
+import { AllMarkersByCountry } from './markers'
 
 //Function that fetches the marker data, marker by marker, and formats it to be ready for rendering.
 function getTooltipContent(marker) {
@@ -37,53 +27,9 @@ function App() {
   const [selectedCountry, setSelectedCountry] = useState("ch")
 
   //Component that takes care of providing the controls for the UI.
-  const RadioButtons = () => {
-    
-    const useStyles = makeStyles((theme) => ({
-      formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-        backgroundColor: 'yellow',
-        color: 'green'
-      },
-      selectEmpty: {
-        marginTop: theme.spacing(2),
-      },
-      transpButton: {
-        color: 'white'
-      }
-    }));
 
-    const classes = useStyles();
-
-    const handleCountryChange = (event) => {
-      //setMarkers(initCountryMarkers())
-      console.log("selected country is: ", selectedCountry)
-      setSelectedCountry(event.target.value) // this one is lagging by one. why?
-      console.log("selected country is now: ", selectedCountry)
-      
-    }
-    return (
-      <div>
-        <Container>
-        <FormControl className={classes.formControl}>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={selectedCountry}
-              onChange={handleCountryChange}
-            >
-              <MenuItem value={"ch"}>China</MenuItem>
-              <MenuItem value={"us"}>United States</MenuItem>
-              <MenuItem value={"it"}>Italy</MenuItem>
-            </Select>
-          </FormControl>
-          <Container>
-          <Button className={classes.transpButton} onClick={() => setMarkers(initCountryMarkers(selectedCountry))}>Yea lets do it</Button>
-          </Container>
-        </Container>
-      </div>
-    )
+  const prepareInitMarkers = () => {
+    setMarkers(initCountryMarkers(selectedCountry))
   }
 
   const initCountryMarkers = (country) => {
@@ -124,7 +70,7 @@ function App() {
         <h2 style={{ color: '#f2f6fc' }}>
           See how other countries read about China in relation to COVID-19.
         </h2>
-        <RadioButtons />
+        <CountryDropdown selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} prepareInitMarkers={() => prepareInitMarkers()}/>
       </div>
       <div style={{ width: '80vw', height: '80vh', top: '0px', left: '0px', margin: '0px' }}>
         <ReactGlobe
