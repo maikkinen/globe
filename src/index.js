@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import ReactGlobe from 'react-globe'
 import { styled, makeStyles } from '@material-ui/core/styles'
-import Container from '@material-ui/core/Container'
+import { Container , Button} from '@material-ui/core/'
 import CTAText from './components/CTAtext.js'
 
 
@@ -32,10 +32,18 @@ const useStyles = makeStyles(() => ({
   halfPageRight: {
     width: '60%',
     height: '100vh',
-    backgroundColor: 'yellow',
+    backgroundColor: '#020308',
     right: '0px',
     float: 'left',
     display: 'inline'
+  },
+  transpButton: {
+    position: 'absolute',
+    top: '2%',
+    right: '2%',
+    color: 'white',
+    zIndex: '100'
+
   }
 }));
 
@@ -61,6 +69,7 @@ const App = () => {
   const classes = useStyles();
 
   const [selectedCountry, setSelectedCountry] = useState("ch")
+  const [aboutVisible, setAboutVisible] = useState(false)
 
 
   //Confusion: is this one necessary anymore? 
@@ -115,6 +124,7 @@ const App = () => {
       />
       </div>
       <div className={classes.halfPageRight}>
+        <Button className={classes.transpButton}>About</Button>
         <ReactGlobe
           markers={markers}
           markerOptions={{ activeScale: 1.1, }}
