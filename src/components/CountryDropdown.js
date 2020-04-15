@@ -12,14 +12,10 @@ const CountryDropdown = ({ selectedCountry, setSelectedCountry, prepareInitMarke
       margin: theme.spacing(1),
       minWidth: 120,
       backgroundColor: 'yellow',
-      color: 'green'
     },
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
-    transpButton: {
-      color: 'white'
-    }
   }));
 
   const classes = useStyles();

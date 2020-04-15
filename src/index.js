@@ -11,22 +11,33 @@ import { AllMarkersByCountry } from './markers'
 
 //For now, styles are available here directly, for simplicity. 
 //TODO: syled-components? Or sth else?
-const pageStyle = {
-  width: '100%',
-  height: '100%',
-  top: '0px',
-  margin: '0px',
-  overflow: 'hidden',
-  backgroundColor: '#020308'
-}
 
-const globeContainerStyle = {
-  width: '100vw',
-  height: '100vh',
-  top: '0px',
-  left: '0px',
-  margin: '0px'
-}
+const useStyles = makeStyles(() => ({
+  pageStyle: {
+    height: '100vh',
+    top: '0px',
+    margin: 'auto',
+    padding: '0px',
+    overflow: 'hidden',
+    backgroundColor: '#020308',
+  },
+  halfPageLeft: {
+    width: '39%',
+    height: '100%',
+    //backgroundColor: 'red', //for testing purposes
+    padding: '5px',
+    float: 'left',
+    display: 'inline'
+  },
+  halfPageRight: {
+    width: '60%',
+    height: '100vh',
+    backgroundColor: 'yellow',
+    right: '0px',
+    float: 'left',
+    display: 'inline'
+  }
+}));
 
 const articleStyle = {
   background: 'yellow',
@@ -47,8 +58,10 @@ const getTooltipContent = (marker) => {
 }
 
 const App = () => {
+  const classes = useStyles();
 
   const [selectedCountry, setSelectedCountry] = useState("ch")
+
 
   //Confusion: is this one necessary anymore? 
   const prepareInitMarkers = () => setMarkers(initCountryMarkers(selectedCountry))
@@ -89,13 +102,15 @@ const App = () => {
   }
 
   return (
-    <Container style={pageStyle}> {/*Containser for the whole page's content. */}
+    <div className={classes.pageStyle}> {/*Containser for the whole page's content. */}
+      <div className={classes.halfPageLeft}>
       <CTAText
         selectedCountry={selectedCountry}
         setSelectedCountry={setSelectedCountry}
         prepareInitMarkers={() => prepareInitMarkers()}
       />
-      <div style={globeContainerStyle}>
+      </div>
+      <div className={classes.halfPageRight}>
         <ReactGlobe
           markers={markers}
           markerOptions={{ activeScale: 1.1, }}
@@ -108,7 +123,7 @@ const App = () => {
         {/*getTooltipContent function picks the marker's headlines and renders them here nicely; somehow.*/}
         {details && (<div style={articleStyle}>{details}</div>)}
       </div>
-    </Container>
+    </div>
   )
 }
 
