@@ -64,7 +64,11 @@ const App = () => {
 
 
   //Confusion: is this one necessary anymore? 
-  const prepareInitMarkers = () => setMarkers(initCountryMarkers(selectedCountry))
+  const prepareInitMarkers = () => {
+    console.log("selected country was first: ", selectedCountry)
+    setMarkers(initCountryMarkers(selectedCountry))
+    console.log("selected country is now: ", selectedCountry)
+  }
 
   const initCountryMarkers = (country) => {
     const countryMarkers = AllMarkersByCountry[country].markers.map(marker => ({

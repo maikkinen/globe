@@ -7,6 +7,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '25%',
     backgroundColor: '#020308',
     padding: '10%',
+    paddingLeft: '15%',
+    paddingRight: '15%'
   },
   headline: {
     color: '#f2f6fc',
@@ -18,18 +20,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CTAText = ({ selectedCountry, setSelectedCountry, prepareInitMarkers }) => {
-  
-const classes = useStyles();
+
+  const classes = useStyles();
 
   return (
     <div className={classes.box}>
       <div className={classes.headline}>
-        See how other countries read about China in relation to COVID-19.
+        See how other countries read
+        about
+        <CountryDropdown
+          selectedCountry={selectedCountry}
+          setSelectedCountry={setSelectedCountry}/>
+        <div>in relation to COVID-19.</div>
       </div>
-      <CountryDropdown
-        selectedCountry={selectedCountry}
-        setSelectedCountry={setSelectedCountry}
-        prepareInitMarkers={() => prepareInitMarkers()} />
+      {/*This button actually launches the markers.*/}
       <Container>
         <Button className={classes.transpButton} onClick={() => prepareInitMarkers()}>Explore</Button>
       </Container>

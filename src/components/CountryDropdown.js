@@ -5,7 +5,7 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import { makeStyles } from '@material-ui/core/styles'
 
-const CountryDropdown = ({ selectedCountry, setSelectedCountry, prepareInitMarkers }) => {
+const CountryDropdown = ({ selectedCountry, setSelectedCountry }) => {
     
   const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -21,10 +21,10 @@ const CountryDropdown = ({ selectedCountry, setSelectedCountry, prepareInitMarke
   const classes = useStyles();
 
   const handleCountryChange = (event) => {
-    //setMarkers(initCountryMarkers())
-    console.log("selected country is: ", selectedCountry)
-    setSelectedCountry(event.target.value) // this one is lagging by one. why?
-    console.log("selected country is now: ", selectedCountry)
+    //This only takes care of switching the displayed dropdown text.
+    console.log("UI selected country is: ", selectedCountry)
+    setSelectedCountry(event.target.value)
+    console.log("UI selected country is now: ", selectedCountry)
     
   }
   return (

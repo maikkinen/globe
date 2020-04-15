@@ -13,7 +13,7 @@ const AllMarkersByCountry = {
       {
         id: 15,
         headline: 'Headline super super super!',
-        color: '#anyHexColorHere',
+        color: 'red',
         city: 'Nuuk',
         coordinates: [58.5074, 0.1278],
         value: 80,
