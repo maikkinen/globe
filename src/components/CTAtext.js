@@ -1,5 +1,6 @@
 import React from 'react'
 import CountryDropdown from './CountryDropdown'
+import TopicInput from './TopicInput'
 import { Button, Container, makeStyles } from '@material-ui/core/'
 
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +32,8 @@ const CTAText = ({ selectedCountry, setSelectedCountry, prepareInitMarkers }) =>
         <CountryDropdown
           selectedCountry={selectedCountry}
           setSelectedCountry={setSelectedCountry}/>
-        <div>in relation to COVID-19.</div>
+        <div>in relation to</div>
+        <TopicInput/>
       </div>
       {/*This button actually launches the markers.*/}
       <Container>
