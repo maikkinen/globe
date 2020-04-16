@@ -44,23 +44,38 @@ const useStyles = makeStyles(() => ({
     right: '20%',
     color: 'red',
     zIndex: '100'
-  }
+  },
+  articleOutlineStyle: {
+    background: 'yellow',
+    position: 'absolute',
+    fontSize: 20,
+    top: '10vh',
+    right: '10vh',
+    padding: 12,
+  },
+
 }));
 
 const articleStyle = {
-  background: 'yellow',
-  position: 'absolute',
-  fontSize: 20,
-  top: '10vh',
-  right: '10vh',
-  padding: 12,
+  header: {
+    fontSize: 20,
+
+  },
+  paragraph: {
+    fontSize: 14
+  },
+  details: {
+    fontSize: 8
+  }
 }
+
+
 //Function that fetches the marker data, marker by marker, and formats it to be ready for rendering.
 const getTooltipContent = (marker) => {
   return (
     <div>
-      <p>"{marker.headline1}"</p>
-      <p>was said in {marker.city}.</p>
+      <div style={articleStyle.header}>{marker.headline}</div>
+      <div style={articleStyle.paragraph}>{marker.paragraph}</div>
     </div>
   )
 }
@@ -133,7 +148,7 @@ const App = () => {
           }}
         />
         {/*getTooltipContent function picks the marker's headlines and renders them here nicely; somehow.*/}
-        {details && (<div style={articleStyle}>{details}</div>)}
+        {details && (<div className={classes.articleOutlineStyle}>{details}</div>)}
       </div>
     </div>
   )
