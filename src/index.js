@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import ReactGlobe from 'react-globe'
-import { styled, makeStyles } from '@material-ui/core/styles'
-import { Container, Button } from '@material-ui/core/'
+import { makeStyles } from '@material-ui/core/styles'
 import CTAText from './components/CTAtext.js'
 import SidePanel from './components/SidePanel'
 
@@ -45,7 +44,7 @@ const useStyles = makeStyles(() => ({
     color: 'red',
     zIndex: '100'
   },
-  articleOutlineStyle: {
+  articleOutlineStyle: { //This effects the box that holds the articles' content.
     background: 'yellow',
     position: 'absolute',
     fontSize: 20,
@@ -56,16 +55,16 @@ const useStyles = makeStyles(() => ({
 
 }));
 
+//This touches only the written content of the news card.
 const articleStyle = {
   header: {
     fontSize: 20,
-
   },
   paragraph: {
     fontSize: 14
   },
   details: {
-    fontSize: 8
+    fontSize: 12
   }
 }
 
@@ -76,6 +75,9 @@ const getTooltipContent = (marker) => {
     <div>
       <div style={articleStyle.header}>{marker.headline}</div>
       <div style={articleStyle.paragraph}>{marker.paragraph}</div>
+      <div style={articleStyle.details}>
+        Published in {marker.outlet}, in {marker.date}
+      </div>
     </div>
   )
 }
