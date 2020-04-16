@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import ReactGlobe from 'react-globe'
 import { styled, makeStyles } from '@material-ui/core/styles'
-import { Container , Button} from '@material-ui/core/'
+import { Container, Button } from '@material-ui/core/'
 import CTAText from './components/CTAtext.js'
+import SidePanel from './components/SidePanel'
 
 
 // Example for accessing markers: AllMarkersByCountry.ch.markers --> list of objects
@@ -40,10 +41,9 @@ const useStyles = makeStyles(() => ({
   transpButton: {
     position: 'absolute',
     top: '2%',
-    right: '2%',
-    color: 'white',
+    right: '20%',
+    color: 'red',
     zIndex: '100'
-
   }
 }));
 
@@ -69,8 +69,6 @@ const App = () => {
   const classes = useStyles();
 
   const [selectedCountry, setSelectedCountry] = useState("ch")
-  const [aboutVisible, setAboutVisible] = useState(false)
-
 
   //Confusion: is this one necessary anymore? 
   const prepareInitMarkers = () => {
@@ -117,14 +115,14 @@ const App = () => {
   return (
     <div className={classes.pageStyle}> {/*Containser for the whole page's content. */}
       <div className={classes.halfPageLeft}>
-      <CTAText
-        selectedCountry={selectedCountry}
-        setSelectedCountry={setSelectedCountry}
-        prepareInitMarkers={() => prepareInitMarkers()}
-      />
+        <CTAText
+          selectedCountry={selectedCountry}
+          setSelectedCountry={setSelectedCountry}
+          prepareInitMarkers={() => prepareInitMarkers()}
+        />
       </div>
       <div className={classes.halfPageRight}>
-        <Button className={classes.transpButton}>About</Button>
+        <SidePanel />
         <ReactGlobe
           markers={markers}
           markerOptions={{ activeScale: 1.1, }}
