@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     fontSize: '120%'
   },
   button: {
-    backgroundColor: '#020308',
+    //If no backgroundColor is set, it's transparent. Voilá!material 
     position: 'absolute',
     top: '2%',
     right: '2%',
@@ -61,7 +61,7 @@ const SidePanel = () => {
           <Button
             className={classes.button}
             onClick={toggleDrawer(anchor, true)}>
-              About
+              About 
           </Button>
           <SwipeableDrawer
             anchor={anchor}
