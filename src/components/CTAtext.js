@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
     color: '#f2f6fc',
     fontSize: '250%',
   },
+  aboutLine: {
+    float: 'left',
+  },
   transpButton: {
     color: 'white',
   }
@@ -28,12 +31,15 @@ const CTAText = ({ selectedCountry, setSelectedCountry, prepareInitMarkers }) =>
     <div className={classes.box}>
       <div className={classes.headline}>
         See how other countries read
-        about
+        <div className={classes.aboutLine}>
+          about
+        </div>
+        <div className={classes.aboutLine}>
         <CountryDropdown
-          selectedCountry={selectedCountry}
-          setSelectedCountry={setSelectedCountry}/>
-        <div>in relation to</div>
-        <TopicInput/>
+            selectedCountry={selectedCountry}
+            setSelectedCountry={setSelectedCountry} />
+        </div>
+        <div>in relation to coronavirus.</div>
       </div>
       {/*This button actually launches the markers.*/}
       <Container>

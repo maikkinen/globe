@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import ReactGlobe from 'react-globe'
 import { makeStyles } from '@material-ui/core/styles'
+import { Button } from '@material-ui/core/'
 import CTAText from './components/CTAtext.js'
 import SidePanel from './components/SidePanel'
 
@@ -44,40 +45,69 @@ const useStyles = makeStyles(() => ({
     color: 'red',
     zIndex: '100'
   },
-  articleOutlineStyle: { //This effects the box that holds the articles' content.
-    background: 'yellow',
+  articlesPositioning: { //This effects the box that holds the articles' content.
     position: 'absolute',
-    fontSize: 20,
-    top: '10vh',
-    right: '10vh',
-    padding: 12,
+    top: '4%',
+    left: '42%',
+    width: '57%',
   },
 
 }));
 
-//This touches only the written content of the news card.
+const articlesPlacementInLayout = {
+  width: '100%'
+}
+
+//This touches a single news card's style.
 const articleStyle = {
-  header: {
-    fontSize: 20,
+  single: {
+    padding: '2%',
+    margin: '1%',
+    backgroundColor: 'yellow',
+    float: 'left',
+    display: 'inline',
+    maxWidth: '40%',
+  },
+  headline: {
+    fontSize: 14,
   },
   paragraph: {
-    fontSize: 14
+    fontSize: 12
   },
   details: {
-    fontSize: 12
+    fontSize: 8
   }
 }
 
 
 //Function that fetches the marker data, marker by marker, and formats it to be ready for rendering.
-const getTooltipContent = (marker) => {
+
+const ArticleComponent = ({ marker }) => {
   return (
-    <div>
-      <div style={articleStyle.header}>{marker.headline}</div>
-      <div style={articleStyle.paragraph}>{marker.paragraph}</div>
+    <div style={articleStyle.single}>
+      <div style={articleStyle.headline}>{marker.headline}</div>
       <div style={articleStyle.details}>
-        Published in {marker.outlet}, in {marker.date}
+        <br/>
+        According to {marker.outlet} in {marker.date}
       </div>
+      <div style={articleStyle.paragraph}>{marker.paragraph}</div>
+    </div>
+  )
+}
+
+const closeCards = (e, setDetails) => {
+  e.preventDefault()
+  setDetails(null)
+  console.log('close now pls')
+}
+
+const articleCardDisplayerThing = ( markers, setDetails) => {
+  return (
+    <div style={articlesPlacementInLayout}>
+      {markers.map(marker => 
+        <ArticleComponent key={marker.id} marker={marker}/>
+      )}
+      <Button onClick={(e) => closeCards(e, setDetails)}>Close</Button>
     </div>
   )
 }
@@ -116,7 +146,8 @@ const App = () => {
       markerObjectID: markerObject.uuid,
       pointerEventPosition: { x: event.clientX, y: event.clientY },
     });
-    setDetails(getTooltipContent(marker));
+    //console.log('marker is: ', marker)
+    setDetails(articleCardDisplayerThing(markers, setDetails));
   }
 
   //Zoom out animation + functionalities
@@ -126,6 +157,7 @@ const App = () => {
       previousCoordinates,
       pointerEventPosition: { x: event.clientX, y: event.clientY },
     });
+    console.log('here')
     setDetails(null);
   }
 
@@ -150,7 +182,7 @@ const App = () => {
           }}
         />
         {/*getTooltipContent function picks the marker's headlines and renders them here nicely; somehow.*/}
-        {details && (<div className={classes.articleOutlineStyle}>{details}</div>)}
+        {details && (<div className={classes.articlesPositioning}>{details}</div>)}
       </div>
     </div>
   )
