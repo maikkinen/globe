@@ -9,14 +9,18 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#020308',
     padding: '10%',
     paddingLeft: '15%',
-    paddingRight: '15%'
+    paddingRight: '15%',
+    width: '60%',
   },
-  headline: {
+  blockLine: {
     color: '#f2f6fc',
     fontSize: '250%',
   },
   aboutLine: {
     float: 'left',
+    color: '#f2f6fc',
+    fontSize: '250%',
+    //backgroundColor: 'red',
   },
   transpButton: {
     color: 'white',
@@ -29,18 +33,23 @@ const CTAText = ({ selectedCountry, setSelectedCountry, prepareInitMarkers }) =>
 
   return (
     <div className={classes.box}>
-      <div className={classes.headline}>
+      <div className={classes.blockLine}>
         See how other countries read
-        <div className={classes.aboutLine}>
-          about
         </div>
-        <div className={classes.aboutLine}>
+      <br/>
+      <div className={classes.aboutLine}>
+        about
+        </div>
+      <div className={classes.aboutLine}>
         <CountryDropdown
-            selectedCountry={selectedCountry}
-            setSelectedCountry={setSelectedCountry} />
-        </div>
-        <div>in relation to coronavirus.</div>
+          selectedCountry={selectedCountry}
+          setSelectedCountry={setSelectedCountry} />
       </div>
+      <br/>
+      <div className={classes.blockLine}>
+        in relation to coronavirus.
+      </div>
+
       {/*This button actually launches the markers.*/}
       <Container>
         <Button className={classes.transpButton} onClick={() => prepareInitMarkers()}>Explore</Button>
