@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Select from 'react-select'
 
 const Dropdown = ({ selectedCountry, setSelectedCountry }) => {
+
+  const [dropdownText, setDropdownText] = useState("country")
 
   const options = [
     { value: 'ch', label: 'China' },
@@ -23,23 +25,29 @@ const Dropdown = ({ selectedCountry, setSelectedCountry }) => {
       ...provided,
       //borderBottom: '1px dotted pink',
       color: state.isSelected ? 'red' : 'white',
-      padding: 10,
+      paddingLeft: 0,
+      paddingTop: 5,
+      paddingBottom: 5,
       fontSize: '55%',
       backgroundColor: '#595269'
     }),
     control: (_, { selectProps: { width }}) => ({
-      width: 200,
+      width: 220,
       //backgroundColor: 'red',
-      padding: 5,
+      padding: 0,
       height: 50,
     }),
     valueContainer: () => ({
       float: 'left',
-      width: '75%'
+      width: '75%',
+      fontSize: '75%'
     }),
     indicatorsContainer: () => ({
       float: 'left',
-      width: '24%'
+      width: '24%',
+      position: 'absolute',
+      right: 0,
+      top: '25%'
     }),
     singleValue: (provided, state) => {
       const opacity = state.isDisabled ? 0.5 : 1;
@@ -50,10 +58,11 @@ const Dropdown = ({ selectedCountry, setSelectedCountry }) => {
   }
 
   const handleCountryChange = (selectedOption) => {
-    //This takes care of switching the displayed dropdown text.
-    const value = selectedOption.value
-    setSelectedCountry(value)
+    //This takes care of 1) setting the correct country to the App's state 2) switching the dropdown's text.
+    setDropdownText(selectedOption.label)
+    setSelectedCountry(selectedOption.value)
   }
+
 
   return (
     <div>
@@ -62,7 +71,7 @@ const Dropdown = ({ selectedCountry, setSelectedCountry }) => {
             value={selectedCountry}
             onChange={(e) => handleCountryChange(e)}
             //defaultValue
-            placeholder="Country"
+            placeholder={dropdownText}
             options={options}
           />
     </div>

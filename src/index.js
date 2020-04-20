@@ -115,7 +115,7 @@ const articleCardDisplayerThing = ( markers, setDetails) => {
 const App = () => {
   const classes = useStyles();
 
-  const [selectedCountry, setSelectedCountry] = useState("ch")
+  const [selectedCountry, setSelectedCountry] = useState('')
 
   //Confusion: is this one necessary anymore? 
   const prepareInitMarkers = () => {
