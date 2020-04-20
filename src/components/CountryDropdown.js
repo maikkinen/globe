@@ -12,6 +12,7 @@ const CountryDropdown = ({ selectedCountry, setSelectedCountry }) => {
       margin: theme.spacing(1),
       minWidth: 120,
       backgroundColor: 'yellow',
+      padding: '1%',
     },
     selectEmpty: {
       marginTop: theme.spacing(2),

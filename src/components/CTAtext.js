@@ -1,5 +1,6 @@
 import React from 'react'
 import CountryDropdown from './CountryDropdown'
+import Dropdown from './Dropdown'
 import TopicInput from './TopicInput'
 import { Button, Container, makeStyles } from '@material-ui/core/'
 
@@ -15,6 +16,8 @@ const useStyles = makeStyles((theme) => ({
   blockLine: {
     color: '#f2f6fc',
     fontSize: '250%',
+    display: 'block',
+    maxWidth: '500px'
   },
   aboutLine: {
     float: 'left',
@@ -41,10 +44,12 @@ const CTAText = ({ selectedCountry, setSelectedCountry, prepareInitMarkers }) =>
         about
         </div>
       <div className={classes.aboutLine}>
-        <CountryDropdown
+        <Dropdown
+          style={{ color: 'pink', backgroundColor: 'white', margin: '20px'}}
           selectedCountry={selectedCountry}
           setSelectedCountry={setSelectedCountry} />
       </div>
+      <br/>
       <br/>
       <div className={classes.blockLine}>
         in relation to coronavirus.
