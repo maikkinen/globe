@@ -6,23 +6,26 @@ const Dropdown = ({ selectedCountry, setSelectedCountry }) => {
   const options = [
     { value: 'ch', label: 'China' },
     { value: 'us', label: 'United States' },
-    { value: 'italy', label: 'Italy' },
+    { value: 'it', label: 'Italy' },
   ]
 
   const customStyles = {
     menu: (provided, state) => ({
       ...provided,
       width: state.selectProps.width,
-      borderBottom: '1px dotted pink',
+      borderBottom: '1px dotted orange',
       color: state.selectProps.menuColor,
       padding: 20,
+      backgroundColor: '#595269',
+      opacity: '0.9'
     }),
     option: (provided, state) => ({
       ...provided,
       //borderBottom: '1px dotted pink',
-      color: state.isSelected ? 'red' : 'blue',
+      color: state.isSelected ? 'red' : 'white',
       padding: 10,
-      fontSize: '75%'
+      fontSize: '55%',
+      backgroundColor: '#595269'
     }),
     control: (_, { selectProps: { width }}) => ({
       width: 200,
@@ -46,20 +49,20 @@ const Dropdown = ({ selectedCountry, setSelectedCountry }) => {
     }
   }
 
-  const handleCountryChange = (event) => {
-    //This only takes care of switching the displayed dropdown text.
-    console.log("UI selected country is: ", selectedCountry)
-    setSelectedCountry(event.target.value)
-    console.log("UI selected country is now: ", selectedCountry)
-    
+  const handleCountryChange = (selectedOption) => {
+    //This takes care of switching the displayed dropdown text.
+    const value = selectedOption.value
+    setSelectedCountry(value)
   }
+
   return (
     <div>
-      <Select
+     <Select
             styles={customStyles}
             value={selectedCountry}
-            onChange={handleCountryChange}
-            menuColor='red'
+            onChange={(e) => handleCountryChange(e)}
+            //defaultValue
+            placeholder="Country"
             options={options}
           />
     </div>

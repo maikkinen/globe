@@ -45,7 +45,6 @@ const CTAText = ({ selectedCountry, setSelectedCountry, prepareInitMarkers }) =>
         </div>
       <div className={classes.aboutLine}>
         <Dropdown
-          style={{ color: 'pink', backgroundColor: 'white', margin: '20px'}}
           selectedCountry={selectedCountry}
           setSelectedCountry={setSelectedCountry} />
       </div>
