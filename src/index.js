@@ -125,7 +125,9 @@ const App = () => {
   }
 
   const initCountryMarkers = (country) => {
-    const countryMarkers = AllMarkersByCountry[country].markers.map(marker => ({
+    let countryMarkers 
+    !selectedCountry ? console.log("noo don't do that!") :
+    countryMarkers = AllMarkersByCountry[country].markers.map(marker => ({
       ...marker,
       value: marker.value,
     })
