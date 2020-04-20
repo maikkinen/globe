@@ -3,10 +3,13 @@ import React from 'react'
 import Dropdown from './Dropdown'
 //import TopicInput from './TopicInput'
 import { Button, Container, makeStyles } from '@material-ui/core/'
+import CallMade from '@material-ui/icons/CallMade'
+
+
 
 const useStyles = makeStyles((theme) => ({
   box: {
-    marginTop: '25%',
+    marginTop: '20%',
     backgroundColor: '#020308',
     padding: '10%',
     paddingLeft: '15%',
@@ -24,11 +27,15 @@ const useStyles = makeStyles((theme) => ({
     float: 'left',
     color: '#f2f6fc',
     fontSize: '250%',
-    margin: 0
+    margin: 0,
+    width: '44%',
+    padding: 0
     //backgroundColor: 'red',
   },
   transpButton: {
     color: 'white',
+    position: 'absolute',
+    left: '20%',
   }
 }));
 
@@ -41,22 +48,30 @@ const CTAText = ({ selectedCountry, setSelectedCountry, prepareInitMarkers }) =>
       <div className={classes.blockLine}>
         See how other countries read
       </div>
-      <div className={classes.aboutLine}>
-        about
+      <div style={{width: 300, backgroundColor: 'red'}}>
+        <div className={classes.aboutLine}>
+          about
         </div>
-      <div className={classes.aboutLine}>
-        <Dropdown
-          selectedCountry={selectedCountry}
-          setSelectedCountry={setSelectedCountry} />
+        <div className={classes.aboutLine}>
+          <Dropdown
+            selectedCountry={selectedCountry}
+            setSelectedCountry={setSelectedCountry} />
+        </div>
       </div>
-      <br/>
+      <br />
+      <br />
       <div className={classes.blockLine}>
         in relation to coronavirus.
       </div>
 
       {/*This button actually launches the markers.*/}
       <Container>
-        <Button className={classes.transpButton} onClick={() => prepareInitMarkers()}>Explore</Button>
+        <Button
+          className={classes.transpButton}
+          onClick={() => prepareInitMarkers()}
+          endIcon={<CallMade />}>
+          Explore
+        </Button>
       </Container>
     </div>
   )

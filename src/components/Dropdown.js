@@ -7,14 +7,15 @@ const Dropdown = ({ selectedCountry, setSelectedCountry }) => {
 
   const options = [
     { value: 'ch', label: 'China' },
-    { value: 'us', label: 'United States' },
+    { value: 'us', label: 'US' },
     { value: 'it', label: 'Italy' },
   ]
 
   const customStyles = {
+    //This one is the panel on which the options are.
     menu: (provided, state) => ({
       ...provided,
-      width: state.selectProps.width,
+      width: '120%',
       borderBottom: '1px dotted orange',
       color: state.selectProps.menuColor,
       padding: 20,
@@ -23,25 +24,29 @@ const Dropdown = ({ selectedCountry, setSelectedCountry }) => {
     }),
     option: (provided, state) => ({
       ...provided,
-      //borderBottom: '1px dotted pink',
       color: state.isSelected ? 'red' : 'white',
       paddingLeft: 0,
       paddingTop: 5,
       paddingBottom: 5,
       fontSize: '55%',
+      width: '100%',
       backgroundColor: '#595269'
     }),
+
+    //This is the wrapper of the whole thing, incls. input + arrow + options
     control: (_, { selectProps: { width }}) => ({
       width: 220,
       //backgroundColor: 'red',
       padding: 0,
+      margin: 0,
       height: 50,
     }),
     valueContainer: () => ({
       float: 'left',
-      width: '75%',
+      width: '200%',
       fontSize: '75%'
     }),
+    //This is the small arrow at the edge of the country dropdown menu
     indicatorsContainer: () => ({
       float: 'left',
       width: '24%',
