@@ -22,11 +22,21 @@ const Dropdown = ({ selectedCountry, setSelectedCountry }) => {
       //borderBottom: '1px dotted pink',
       color: state.isSelected ? 'red' : 'blue',
       padding: 10,
+      fontSize: '75%'
     }),
     control: (_, { selectProps: { width }}) => ({
       width: 200,
-      backgroundColor: 'red',
-      padding: 10
+      //backgroundColor: 'red',
+      padding: 5,
+      height: 50,
+    }),
+    valueContainer: () => ({
+      float: 'left',
+      width: '75%'
+    }),
+    indicatorsContainer: () => ({
+      float: 'left',
+      width: '24%'
     }),
     singleValue: (provided, state) => {
       const opacity = state.isDisabled ? 0.5 : 1;
