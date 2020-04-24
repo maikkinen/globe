@@ -1,27 +1,30 @@
-23.4.20
-
-Summary of the received feedback
-This whole thing made little sense to others who haven't seen it yet.
-What is it actually offering to the user?
+24.4.20
 
 --------
 TODO:
-#1 outline clearly: what do we actually want to say with this?
+-refactor code
+-the articles are a wall of words --> 1) Get a summary of headlines / paragraphs 2) Embed it into the app
 
--the welcoming text --> rephrasing
--the articles are a wall of words --> distill sth interesting out of it
--the "aha" or the takeaway is missing --> give that to users (such as a summary or so) (see #1)
--why we display the coordinates? didn't make sense --> remove, or substitute to something interesting
+Globe
+-don't display coordinates --> Show country name!
+-disable clouds
+-enable black globe
+-disable zooming in
 
+
+Layout / UI
 -move 'About' to different place
--create 'close'-button that takes you 'back to the map'
+-create 'close'-button? To clos the articles?
 -responsivity fails totally. --> Fix. 
+
+Data
+-fix nesting: separate arrays
 
 --------
 
-Agreeing on tasks:
--checking that the data is in shape, there was sth weird (showing too many articles?) --> look into the nesting in markers.js
--based on what we agree, some refactoring coming
--blog
--some relevant About-text + the component's styling to shape
--sth else?
+Flow:
+1) Select country
+2) Hit explore
+3) A decent amount of articles appears to the right 60% of the screen.
+	-show a summary
+	-the pins aren't clickable, but as they appear on the globe, those indicate where on the globe the article was published.
