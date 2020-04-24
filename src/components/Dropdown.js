@@ -3,7 +3,7 @@ import Select from 'react-select'
 
 const Dropdown = ({ selectedCountry, setSelectedCountry }) => {
 
-  const [dropdownText, setDropdownText] = useState("country")
+  const [dropdownText, setDropdownText] = useState("ch")
 
   const options = [
     { value: 'ch', label: 'China' },
