@@ -108,7 +108,7 @@ const articleCardDisplayerThing = (markers, setDetails) => {
       {markers.map(marker =>
         <ArticleComponent key={marker.id} marker={marker} />
       )}
-      <Button onClick={(e) => closeCards(e, setDetails)}>Close</Button>
+      <Button variant="outlined" color="primary" onClick={(e) => closeCards(e, setDetails)}>Close</Button>
     </div>
   )
 }
@@ -160,9 +160,10 @@ const App = () => {
       previousCoordinates,
       pointerEventPosition: { x: event.clientX, y: event.clientY },
     });
-    console.log('here')
     setDetails(null);
   }
+
+  const headlineFunc = (marker) => `"${marker.headline}" - ${marker.city }`
 
   const opt = {
     activeScale: 1.3,
@@ -172,7 +173,7 @@ const App = () => {
     enterEasingFunction: ['Linear', 'None'],
     exitAnimationDuration: 500,
     exitEasingFunction: ['Cubic', 'Out'],
-    getTooltipContent: marker => marker.city,
+    getTooltipContent: marker => headlineFunc(marker),
     glowCoefficient: 0,
     glowPower: 3,
     glowRadiusScale: 2,
@@ -195,11 +196,12 @@ const App = () => {
           markers={markers}
           markerOptions={opt}
           onClickMarker={onClickMarker}
-          //onDefocus={onDefocus}
+          onDefocus={onDefocus}
           globeOptions={{
+            enableBackground: false,
             texture: `${globeTextureUrl}`,
             enableClouds: false,
-            //backgroundTexture: `${backgroundImage}`
+            backgroundTexture: `${backgroundImage}`
           }}
         />
         {/*getTooltipContent function picks the marker's headlines and renders them here nicely; somehow.*/}

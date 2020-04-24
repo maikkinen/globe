@@ -6,10 +6,10 @@ TODO:
 -the articles are a wall of words --> 1) Get a summary of headlines / paragraphs 2) Embed it into the app
 
 Globe
--don't display coordinates --> Show country name!
--disable clouds
+-don't display coordinates --> Show city name! #DONE. 24.4.20
+-disable clouds #DONE. 24.4.20
 -enable black globe
--disable zooming in
+-diable zooming in
 
 
 Layout / UI
