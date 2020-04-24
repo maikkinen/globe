@@ -1,16 +1,12 @@
 import React, { useState } from 'react'
-import ReactGlobe from 'react-globe'
 import { makeStyles } from '@material-ui/core/styles'
-import { Button } from '@material-ui/core/'
 import CTAText from './components/CTAtext.js'
 import SidePanel from './components/SidePanel'
+import Globe from './components/Globe'
 
 
 // Example for accessing markers: AllMarkersByCountry.ch.markers --> list of objects
 import { AllMarkersByCountry } from './markers'
-
-const globeTextureUrl = 'https://raw.githubusercontent.com/chrisrzhou/react-globe/master/textures/globe_dark.jpg'
-const backgroundImage = './assets/virus_green.jpg'
 
 //For now, styles are available here directly, for simplicity. 
 //TODO: syled-components? Or sth else?
@@ -56,69 +52,18 @@ const useStyles = makeStyles(() => ({
 
 }));
 
-const articlesPlacementInLayout = {
-  width: '100%'
-}
-
-//This touches a single news card's style.
-const articleStyle = {
-  single: {
-    padding: '2%',
-    margin: '1%',
-    backgroundColor: 'yellow',
-    float: 'left',
-    display: 'inline',
-    maxWidth: '40%',
-  },
-  headline: {
-    fontSize: 14,
-  },
-  paragraph: {
-    fontSize: 12
-  },
-  details: {
-    fontSize: 8
-  }
-}
-
 //Function that fetches the marker data, marker by marker, and formats it to be ready for rendering.
 
-const ArticleComponent = ({ marker }) => {
-  return (
-    <div style={articleStyle.single}>
-      <div style={articleStyle.headline}>{marker.headline}</div>
-      <div style={articleStyle.details}>
-        <br />
-        According to {marker.outlet} in {marker.date}
-      </div>
-      <div style={articleStyle.paragraph}>{marker.paragraph}</div>
-    </div>
-  )
-}
-
-const closeCards = (e, setDetails) => {
-  e.preventDefault()
-  setDetails(null)
-  console.log('close now pls')
-}
-
-const articleCardDisplayerThing = (markers, setDetails) => {
-  return (
-    <div style={articlesPlacementInLayout}>
-      {markers.map(marker =>
-        <ArticleComponent key={marker.id} marker={marker} />
-      )}
-      <Button variant="outlined" color="primary" onClick={(e) => closeCards(e, setDetails)}>Close</Button>
-    </div>
-  )
-}
 
 const App = () => {
   const classes = useStyles();
 
   const [selectedCountry, setSelectedCountry] = useState('ch')
+  const [markers, setMarkers] = useState([]);
+  const [event, setEvent] = useState(null);
+  const [details, setDetails] = useState(null);
 
-  //Confusion: is this one necessary anymore? 
+  //Load the markers ready to the markers-variable, ready for 'exploring'.
   const prepareInitMarkers = () => {
     console.log("selected country was first: ", selectedCountry)
     setMarkers(initCountryMarkers(selectedCountry))
@@ -137,49 +82,6 @@ const App = () => {
     return countryMarkers
   }
 
-  const [markers, setMarkers] = useState([]);
-  const [event, setEvent] = useState(null);
-  const [details, setDetails] = useState(null);
-
-  //Zoom in animation + functionalities
-  const onClickMarker = (marker, markerObject, event) => {
-    setEvent({
-      type: 'CLICK',
-      marker,
-      markerObjectID: markerObject.uuid,
-      pointerEventPosition: { x: event.clientX, y: event.clientY },
-    });
-    //console.log('marker is: ', marker)
-    setDetails(articleCardDisplayerThing(markers, setDetails));
-  }
-
-  //Zoom out animation + functionalities
-  const onDefocus = (previousCoordinates, event) => {
-    setEvent({
-      type: 'DEFOCUS',
-      previousCoordinates,
-      pointerEventPosition: { x: event.clientX, y: event.clientY },
-    });
-    setDetails(null);
-  }
-
-  const headlineFunc = (marker) => `"${marker.headline}" - ${marker.city }`
-
-  const opt = {
-    activeScale: 1.3,
-    enableGlow: true,
-    enableTooltip: true,
-    enterAnimationDuration: 1000,
-    enterEasingFunction: ['Linear', 'None'],
-    exitAnimationDuration: 500,
-    exitEasingFunction: ['Cubic', 'Out'],
-    getTooltipContent: marker => headlineFunc(marker),
-    glowCoefficient: 0,
-    glowPower: 3,
-    glowRadiusScale: 2,
-    radiusScaleRange: [0.005, 0.02],
-    //type: MarkerType.Dot,
-  }
 
   return (
     <div className={classes.pageStyle}> {/*Containser for the whole page's content. */}
@@ -192,18 +94,11 @@ const App = () => {
       </div>
       <div className={classes.halfPageRight}>
         <SidePanel />
-        <ReactGlobe
-          markers={markers}
-          markerOptions={opt}
-          onClickMarker={onClickMarker}
-          onDefocus={onDefocus}
-          globeOptions={{
-            enableBackground: false,
-            texture: `${globeTextureUrl}`,
-            enableClouds: false,
-            backgroundTexture: `${backgroundImage}`
-          }}
-        />
+        <Globe 
+          setDetails={setDetails} 
+          setEvent={setEvent} 
+          markers={markers} 
+          /> 
         {/*getTooltipContent function picks the marker's headlines and renders them here nicely; somehow.*/}
         {details && (<div className={classes.articlesPositioning}>{details}</div>)}
       </div>
