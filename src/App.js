@@ -20,6 +20,7 @@ const useStyles = makeStyles(() => ({
     overflow: 'hidden',
     backgroundColor: '#020308',
   },
+  //Layout
   halfPageLeft: {
     width: '39%',
     height: '100%',
@@ -28,6 +29,7 @@ const useStyles = makeStyles(() => ({
     float: 'left',
     display: 'inline'
   },
+  //Layout
   halfPageRight: {
     width: '60%',
     height: '100vh',
@@ -35,13 +37,6 @@ const useStyles = makeStyles(() => ({
     right: '0px',
     float: 'left',
     display: 'inline'
-  },
-  transpButton: {
-    position: 'absolute',
-    top: '2%',
-    right: '20%',
-    color: 'red',
-    zIndex: '100'
   },
   articlesPositioning: { //This effects the box that holds the articles' content.
     position: 'absolute',
@@ -58,30 +53,25 @@ const useStyles = makeStyles(() => ({
 const App = () => {
   const classes = useStyles();
 
-  const [selectedCountry, setSelectedCountry] = useState('ch')
+  const [selectedCountry, setSelectedCountry] = useState('')
   const [markers, setMarkers] = useState([]);
   const [event, setEvent] = useState(null);
   const [details, setDetails] = useState(null);
 
   //Load the markers ready to the markers-variable, ready for 'exploring'.
-  const prepareInitMarkers = () => {
-    console.log("selected country was first: ", selectedCountry)
-    setMarkers(initCountryMarkers(selectedCountry))
-    console.log("selected country is now: ", selectedCountry)
-  }
+  const prepareInitMarkers = () => setMarkers(initCountryMarkers(selectedCountry))
 
   const initCountryMarkers = (country) => {
     let countryMarkers
-    !selectedCountry ? console.log("noo don't do that!") :
-      countryMarkers = AllMarkersByCountry[country].markers.map(marker => ({
-        ...marker,
-        value: marker.value,
-      })
+    !selectedCountry ? console.log("Nothing to show yet, pls select country!") :
+      countryMarkers = AllMarkersByCountry[country].markers.map(
+        marker => ({
+          ...marker,
+          value: marker.value,
+        })
       )
-    console.log("countrymarkers :", countryMarkers)
     return countryMarkers
   }
-
 
   return (
     <div className={classes.pageStyle}> {/*Containser for the whole page's content. */}
@@ -94,12 +84,12 @@ const App = () => {
       </div>
       <div className={classes.halfPageRight}>
         <SidePanel />
-        <Globe 
-          setDetails={setDetails} 
-          setEvent={setEvent} 
-          markers={markers} 
-          /> 
-        {/*getTooltipContent function picks the marker's headlines and renders them here nicely; somehow.*/}
+        <Globe
+          setDetails={setDetails}
+          setEvent={setEvent}
+          markers={markers}
+        />
+        {/*Don't understand a 100% how the thing below works...*/}
         {details && (<div className={classes.articlesPositioning}>{details}</div>)}
       </div>
     </div>
