@@ -2,13 +2,13 @@
 
 --------
 TODO:
--refactor code
+-refactor code #DONE. 24.4.20
 -the articles are a wall of words --> 1) Get a summary of headlines / paragraphs 2) Embed it into the app
 
 Globe
 -don't display coordinates --> Show city name! #DONE. 24.4.20
 -disable clouds #DONE. 24.4.20
--enable black globe
+-enable black globe #Continue from here.
 -diable zooming in
 
 
