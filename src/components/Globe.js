@@ -1,10 +1,44 @@
 import React from 'react'
 import ReactGlobe from 'react-globe'
 import ArticleCard from './ArticleCard'
+import ReactWordCloud from 'react-wordcloud'
 import { Button } from '@material-ui/core/'
 
 const globeTextureUrl = 'https://raw.githubusercontent.com/chrisrzhou/react-globe/master/textures/globe_dark.jpg'
 const backgroundImage = './assets/virus_green.jpg'
+
+function flatten(ary, ret = []) {
+  return ary.reduce((ret, entry) => {
+    if (Array.isArray(entry)) {
+      flatten(entry, ret);
+    } else {
+      ret.push(entry);
+    }
+    return ret;
+  }, ret);
+}
+
+function wordFrequency(txt) {
+  var wordArray = txt.split(/[ .?!,*'"]/);
+  var newArray = [], wordObj;
+  wordArray.forEach(function (word) {
+    wordObj = newArray.filter(function (w) {
+      return w.text == word;
+    });
+    if (wordObj.length) {
+      wordObj[0].value += 1;
+    } else {
+      newArray.push({ text: word, value: 1 });
+    }
+  });
+  let filteredArray = newArray.filter( wo => {
+    if (wo.text !== "the" && wo.text !== "and" && wo.text !== "a" && wo.text !== "of" && wo.text !== "is" && wo.text !== "to" && wo.text !== "in") {
+      return wo
+    }
+   })
+  return filteredArray;
+}
+
 
 const articlesPlacementInLayout = {
   width: '100%' //It's a full amount of the 60% that's given to the globe.
@@ -43,20 +77,35 @@ const closeCards = (e, setDetails) => {
   setDetails(null)
 }
 
-const Globe = ( { setEvent, setDetails, markers }) => {
+const Globe = ({ setEvent, setDetails, markers }) => {
 
+  /*
+        {markers.map(
+          marker =>
+          <ReactWordCloud key={marker.id} words={marker.headline.split(/\W+/).map(w => {return {'text': w, 'value': 2 }})}/>
+        )}
+  
+        <ReactWordCloud words={flatten(markers.map(m => m.headline).map(h => h.split(/\W+/))).map(w => {return {'text': w, 'value': Math.floor((Math.random() * 10) + 1) }})}/>
+  
+        */
+
+  //<ArticleCard key={marker.id} marker={marker}/>
   //"Container" that fetches the articles from the markers and pushes them to readable format as news cards
   const helperDisplayArticle = (markers, setDetails) => {
-  return (
-    <div style={articlesPlacementInLayout}>
-      {markers.map(
-        marker =>
-        <ArticleCard key={marker.id} marker={marker}/>
-      )}
-      <Button variant="outlined" color="primary" onClick={(e) => closeCards(e, setDetails)}>Close</Button>
-    </div>
-  )
-}
+    return (
+      <div style={articlesPlacementInLayout}>
+        <ReactWordCloud
+          options={{
+            fontSizes: [18, 100],
+            rotations: 0,
+            rotationAngles: [0, 0],
+            enableTooltip: false,
+          }}
+          words={flatten(wordFrequency(markers.map(m => m.headline.toLowerCase()).join(" "))).filter(wo => wo.value > 0).map(wo => { return { text: wo.text, value: wo.value * 100 } })} />
+        <Button variant="outlined" color="primary" onClick={(e) => closeCards(e, setDetails)}>Close</Button>
+      </div>
+    )
+  }
 
   //Zoom in animation
   const onClickMarker = (marker, markerObject, event) => {
@@ -66,7 +115,7 @@ const Globe = ( { setEvent, setDetails, markers }) => {
       markerObjectID: markerObject.uuid,
       pointerEventPosition: { x: event.clientX, y: event.clientY },
     });
-    setDetails(helperDisplayArticle(markers, setDetails));
+    setDetails(helperDisplayArticle(markers.filter(m => m.city === marker.city), setDetails));
   }
 
   //Zoom out animation
@@ -94,4 +143,3 @@ export default Globe
 
 
 
-  

@@ -18,7 +18,7 @@ const articleStyle = {
     fontSize: 12
   },
   details: {
-    fontSize: 8
+    fontSize: 12
   }
 }
 

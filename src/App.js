@@ -6,7 +6,7 @@ import Globe from './components/Globe'
 
 
 // Example for accessing markers: AllMarkersByCountry.ch.markers --> list of objects
-import { AllMarkersByCountry } from './markers'
+import { AllMarkersByCountry } from './markers/markers'
 
 //For now, styles are available here directly, for simplicity. 
 //TODO: syled-components? Or sth else?
@@ -53,7 +53,7 @@ const useStyles = makeStyles(() => ({
 const App = () => {
   const classes = useStyles();
 
-  const [selectedCountry, setSelectedCountry] = useState('')
+  const [selectedCountry, setSelectedCountry] = useState('us')
   const [markers, setMarkers] = useState([]);
   const [event, setEvent] = useState(null);
   const [details, setDetails] = useState(null);
@@ -90,7 +90,9 @@ const App = () => {
           markers={markers}
         />
         {/*Don't understand a 100% how the thing below works...*/}
-        {details && (<div className={classes.articlesPositioning}>{details}</div>)}
+        {(<div className={classes.articlesPositioning}>{details}</div>)}
+        {console.log(typeof details)}
+        {console.log(details)}
       </div>
     </div>
   )
