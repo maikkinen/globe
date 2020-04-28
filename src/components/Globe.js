@@ -4,7 +4,8 @@ import ArticleCard from './ArticleCard'
 import ReactWordCloud from 'react-wordcloud'
 import { Button } from '@material-ui/core/'
 
-const globeTextureUrl = 'https://raw.githubusercontent.com/chrisrzhou/react-globe/master/textures/globe_dark.jpg'
+//Despite the fact that this syntax is 'correct' according to the documentation, for some reason, only passing the link directly works.
+//const globeTextureUrl = 'https://raw.githubusercontent.com/chrisrzhou/react-globe/master/textures/globe_dark.jpg'
 const backgroundImage = './assets/virus_green.jpg'
 
 function flatten(ary, ret = []) {
@@ -63,7 +64,7 @@ const customMarkerOpts = {
 
 const customGlobeOps = {
   enableBackground: false,
-  texture: `${globeTextureUrl}`,
+  texture: 'https://raw.githubusercontent.com/chrisrzhou/react-globe/master/textures/globe_dark.jpg', //`${globeTextureUrl}`,
   enableClouds: false,
   backgroundTexture: `${backgroundImage}`
 }
@@ -100,6 +101,7 @@ const Globe = ({ setEvent, setDetails, markers }) => {
             rotations: 0,
             rotationAngles: [0, 0],
             enableTooltip: false,
+            colors: [ "#8a6e99", "#d1bb4f", "#665d31", "#cec0d1", "#eedaf2", "#7e7780", "#e5e6d5"]
           }}
           words={flatten(wordFrequency(markers.map(m => m.headline.toLowerCase()).join(" "))).filter(wo => wo.value > 0).map(wo => { return { text: wo.text, value: wo.value * 100 } })} />
         <Button variant="outlined" color="primary" onClick={(e) => closeCards(e, setDetails)}>Close</Button>
