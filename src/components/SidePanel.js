@@ -7,12 +7,12 @@ import About from './About'
 
 const useStyles = makeStyles({
   panel: {
-    backgroundColor: 'green', //for testing purposes
+    backgroundColor: '#756585', //for testing purposes
     color: 'white',           //for testing purposes
     width: '40vw',
     height: '100%',
     margin: '0px',
-    padding: '5%',
+    padding: '3%',
     overflow: 'hidden',
     fontSize: '120%'
   },
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     //If no backgroundColor is set, it's transparent. Voilá!material 
     position: 'absolute',
     top: '2%',
-    right: '2%',
+    left: '2%',
     color: 'white',
     zIndex: '100'
   },
