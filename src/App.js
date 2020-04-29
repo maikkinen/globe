@@ -4,6 +4,8 @@ import CTAText from './components/CTAtext.js'
 import SidePanel from './components/SidePanel'
 import Globe from './components/Globe'
 
+import './App.css'
+
 
 // Example for accessing markers: AllMarkersByCountry.ch.markers --> list of objects
 import { AllMarkersByCountry } from './markers/markers'
@@ -14,6 +16,7 @@ import { AllMarkersByCountry } from './markers/markers'
 const useStyles = makeStyles(() => ({
   pageStyle: {
     height: '100vh',
+    //width: '100vw',
     top: '0px',
     margin: 'auto',
     padding: '0px',
@@ -74,7 +77,7 @@ const App = () => {
   }
 
   return (
-    <div className={classes.pageStyle}> {/*Containser for the whole page's content. */}
+    <div className={classes.pageStyle}> {/*Container for the whole page's content. */}
       <div className={classes.halfPageLeft}>
         <CTAText
           selectedCountry={selectedCountry}

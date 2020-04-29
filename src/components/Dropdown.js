@@ -8,7 +8,10 @@ const Dropdown = ({ selectedCountry, setSelectedCountry }) => {
   const options = [
     { value: 'ch', label: 'China' },
     { value: 'us', label: 'US' },
-    { value: 'it', label: 'Italy' },
+    { value: 'fi', label: 'Finland' },
+    { value: 'br', label: 'Brazil' },
+    { value: 'au', label: 'Australia' },
+    { value: 'eg', label: 'Egypt' },
   ]
 
   const customStyles = {

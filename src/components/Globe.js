@@ -104,7 +104,7 @@ const Globe = ({ setEvent, setDetails, markers }) => {
             colors: [ "#8a6e99", "#d1bb4f", "#665d31", "#cec0d1", "#eedaf2", "#7e7780", "#e5e6d5"]
           }}
           words={flatten(wordFrequency(markers.map(m => m.headline.toLowerCase()).join(" "))).filter(wo => wo.value > 0).map(wo => { return { text: wo.text, value: wo.value * 100 } })} />
-        <Button variant="outlined" color="primary" onClick={(e) => closeCards(e, setDetails)}>Close</Button>
+        <Button variant="outlined" color="primary" onClick={(e) => closeCards(e, setDetails)}>Back to map</Button>
       </div>
     )
   }

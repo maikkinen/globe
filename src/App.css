@@ -1,0 +1,19 @@
+/* Chrome, Safari and Opera syntax */
+:-webkit-full-screen {
+  background-color: black;
+}
+
+/* Firefox syntax */
+:-moz-full-screen {
+  background-color: black;
+}
+
+/* IE/Edge syntax */
+:-ms-fullscreen {
+  background-color: black;
+}
+
+/* Standard syntax */
+:fullscreen {
+  background-color: black;
+}

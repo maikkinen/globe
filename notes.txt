@@ -8,14 +8,14 @@ TODO:
 Globe
 -don't display coordinates --> Show city name! #DONE. 24.4.20
 -disable clouds #DONE. 24.4.20
--enable black globe #Continue from here.
--diable zooming in
+-enable black globe --- issue raised. It's buggy.
+-disable zooming in
 
 
 Layout / UI
--move 'About' to different place
--create 'close'-button? To clos the articles?
--responsivity fails totally. --> Fix. 
+-move 'About' to different place --- Done.
+-create 'close'-button? To clos the articles? --- Done.
+-responsivity fails totally. --> Fix this!
 
 Data
 -fix nesting: separate arrays
