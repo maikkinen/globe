@@ -1,4 +1,4 @@
-24.4.20
+28.4.20
 
 --------
 TODO:
@@ -9,7 +9,9 @@ Globe
 -don't display coordinates --> Show city name! #DONE. 24.4.20
 -disable clouds #DONE. 24.4.20
 -enable black globe --- issue raised. It's buggy.
--disable zooming in
+-disable zooming in --> Fix this one!
+-adding the country options as placeholders --- Done.
+-restructuring and adding data to the marker.js, when the data is ready
 
 
 Layout / UI
