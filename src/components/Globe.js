@@ -24,7 +24,7 @@ function wordFrequency(txt) {
   var newArray = [], wordObj;
   wordArray.forEach(function (word) {
     wordObj = newArray.filter(function (w) {
-      return w.text == word;
+      return w.text === word;
     });
     if (wordObj.length) {
       wordObj[0].value += 1;
@@ -67,6 +67,15 @@ const customGlobeOps = {
   texture: 'https://raw.githubusercontent.com/chrisrzhou/react-globe/master/textures/globe_dark.jpg', //`${globeTextureUrl}`,
   enableClouds: false,
   backgroundTexture: `${backgroundImage}`
+}
+
+const customFocusOps = {
+  distanceRadiusScale: 0.5,
+  enableZoom: false
+}
+
+const customCameraOps = {
+  enableZoom: false 
 }
 
 //Determines what's shown when hovering on marker. Passed to Globe's markerOptions through customMarkerOpts.
@@ -137,6 +146,8 @@ const Globe = ({ setEvent, setDetails, markers }) => {
       onClickMarker={onClickMarker}
       onDefocus={onDefocus}
       globeOptions={customGlobeOps}
+      focusOptions={customFocusOps}
+      cameraOptions={customCameraOps}
     />
   )
 }

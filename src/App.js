@@ -56,7 +56,7 @@ const useStyles = makeStyles(() => ({
 const App = () => {
   const classes = useStyles();
 
-  const [selectedCountry, setSelectedCountry] = useState('us')
+  const [selectedCountry, setSelectedCountry] = useState('')
   const [markers, setMarkers] = useState([]);
   const [event, setEvent] = useState(null);
   const [details, setDetails] = useState(null);
