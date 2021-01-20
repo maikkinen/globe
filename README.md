@@ -10,6 +10,3 @@ For now, the data is hard-coded.
 The visualization's functionalities were built with React.js, and the UI components are customized Material-Ui components.
 The globe element has been built on top of this react-globe: 
 https://www.npmjs.com/package/react-globe
-
-Feel free to Fiddle in Codesandbox:
-https://codesandbox.io/s/github/maikkinen/globe?file=/src/index.js
